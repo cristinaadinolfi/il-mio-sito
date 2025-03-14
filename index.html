@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Un rifugio per poesie, racconti e laboratori creativi">
+    <title>Parole di Carta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* Variabili e reset */
+        :root {
+            --primary: #d0e0f7;
+            --primary-dark: #aec4e6;
+            --secondary: #f7e3d0;
+            --accent: #d8f0ef;
+            --text: #5a5a5a;
+            --text-light: #7a7a7a;
+            --background: #fdfcfd;
+            --card: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.04);
+            --border: #eaeaea;
+            --radius: 12px;
+            --header-height: 60px;
+            --transition: all 0.3s ease;
+            --font-family: 'Spectral', Georgia, serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Stili base */
+        body {
+            font-family: var(--font-family);
+            line-height: 1.7;
+            color: var(--text);
+            background-color: var(--background);
+            padding-top: calc(var(--header-height) + 30px);
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        a {
+            color: var(--text);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        a:hover {
+            opacity: 0.8;
+        }
+        
+        h1, h2, h3, h4 {
+            font-weight: 500;
+            line-height: 1.3;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-dark);
+            opacity: 0.7;
+        }
+        
+        h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        button {
+            cursor: pointer;
+            font-family: var(--font-family);
+            transition: var(--transition);
+        }
+        
+        /* Layout principale */
+        .container {
+            width: 92%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--card);
+            box-shadow: 0 2px 8px var(--shadow);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+        
+        .logo span {
+            color: var(--text-light);
+            font-style: italic;
+            font-weight: 300;
+        }
+        
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            position: relative;
+            padding-bottom: 3px;
+        }
+        
+        nav a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--text);
+            transition: var(--transition);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .section {
+            margin-bottom: 4rem;
+            padding: 2rem 0;
+        }
+        
+        .section-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        /* Carte per i contenuti */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .card {
+            background-color: var(--card);
+            border-radius: var(--radius);
+            box-shadow: 0 4px 12px var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px var(--shadow);
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .card-poesia {
+            border-top: 3px solid var(--primary);
+        }
+        
+        .card-racconto {
+            border-top: 3px solid var(--secondary);
+        }
+        
+        .card-laboratorio {
+            border-top: 3px solid var(--accent);
+        }
+        
+        .card-date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            display: block;
+            margin-bottom: 0.75rem;
+            font-style: italic;
+        }
+        
+        .card-text {
+            margin-bottom: 1rem;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 6;
+            -webkit-box-orient: vertical;
+        }
+        
+        .card-tipo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 20px;
+            background-color: var(--card);
+            box-shadow: 0 2px 5px var(--shadow);
+        }
+        
+        .tipo-poesia {
+            background-color: var(--primary);
+        }
+        
+        .tipo-racconto {
+            background-color: var(--secondary);
+        }
+        
+        .tipo-laboratorio {
+            background-color: var(--accent);
+        }
+        
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+        
+        .read-more svg {
+            width: 16px;
+            height: 16px;
+            margin-left: 4px;
+            transition: var(--transition);
+        }
+        
+        .read-more:hover svg {
+            transform: translateX(3px);
+        }
+        
+        /* Componenti specifici */
+        .alert {
+            padding: 1rem;
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            background-color: var(--primary);
+            border-left: 3px solid var(--primary-dark);
+        }
+        
+        .alert-error {
+            background-color: #ffe8e8;
+            border-left-color: #ffbbbb;
+        }
+        
+        .alert-success {
+            background-color: #e8ffe8;
+            border-left-color: #bbffbb;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-family: var(--font-family);
+            font-size: 1rem;
+            background-color: var(--card);
+            transition: var(--transition);
+        }
+        
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary-dark);
+            box-shadow: 0 0 0 3px rgba(174, 196, 230, 0.2);
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            background-color: var(--primary);
+            color: var(--text);
+            transition: var(--transition);
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #f0d6c0;
+        }
+        
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .btn-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--card);
+            border-top: 1px solid var(--border);
+            padding: 2rem 0;
+            margin-top: 4rem;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: var(--text-light);
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        /* Modal */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        
+        .modal-backdrop.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal {
+            background-color: var(--card);
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-20px);
+            transition: var(--transition);
+        }
+        
+        .modal-backdrop.show .modal {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+        }
+        
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+        
+        /* Dettaglio contenuto */
+        .content-detail {
+            padding: 2rem;
+            background-color: var(--card);
+            border-radius: var(--radius);
+            box-shadow: 0 4px 12px var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .content-detail h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .content-detail .date {
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        
+        .content-body {
+            line-height: 1.8;
+        }
+        
+        .poesia-body {
+            white-space: pre-line;
+        }
+        
+        /* Animazioni */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
+            
+            h3 {
+                font-size: 1.1rem;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hide-mobile {
+                display: none;
+            }
+            
+            nav {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Accessibilità */
+        *:focus-visible {
+            outline: 2px solid var(--primary-dark);
+            outline-offset: 2px;
+        }
+        
+        /* Utilità */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .mt-4 { margin-top: 2rem; }
+        
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 2rem; }
+        
+        .mr-1 { margin-right: 0.5rem; }
+        .mr-2 { margin-right: 1rem; }
+        
+        .d-flex {
+            display: flex;
+        }
+        
+        .align-center {
+            align-items: center;
+        }
+        
+        .justify-between {
+            justify-content: space-between;
+        }
+        
+        .justify-center {
+            justify-content: center;
+        }
+        
+        .gap-1 { gap: 0.5rem; }
+        .gap-2 { gap: 1rem; }
+        
+        .w-100 {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header fisso -->
+    <header>
+        <div class="container">
+            <a href="#" class="logo">Parole di Carta <span>| Poesie e Racconti</span></a>
+            <nav>
+                <a href="#poesie">Poesie</a>
+                <a href="#racconti">Racconti</a>
+                <a href="#laboratori">Laboratori</a>
+                <a href="#chi-sono">Chi Sono</a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Contenuto principale -->
+    <main class="container">
+        <!-- Sezione Poesie -->
+        <section id="poesie" class="section">
+            <div class="section-header">
+                <h2>Poesie</h2>
+            </div>
+            <div id="poesie-container" class="card-grid">
+                <!-- I contenuti vengono caricati da JavaScript -->
+            </div>
+        </section>
+        
+        <!-- Sezione Racconti -->
+        <section id="racconti" class="section">
+            <div class="section-header">
+                <h2>Racconti</h2>
+            </div>
+            <div id="racconti-container" class="card-grid">
+                <!-- I contenuti vengono caricati da JavaScript -->
+            </div>
+        </section>
+        
+        <!-- Sezione Laboratori -->
+        <section id="laboratori" class="section">
+            <div class="section-header">
+                <h2>Laboratori</h2>
+            </div>
+            <div id="laboratori-container" class="card-grid">
+                <!-- I contenuti vengono caricati da JavaScript -->
+            </div>
+        </section>
+        
+        <!-- Chi Sono -->
+        <section id="chi-sono" class="section">
+            <div class="section-header">
+                <h2>Chi Sono</h2>
+            </div>
+            <div class="content-detail">
+                <p>
+                    Benvenuti nel mio piccolo angolo di internet. Scrivo per passione e per necessità, per dare voce ai pensieri che altrimenti rimarrebbero intrappolati nella mia mente. Attraverso poesie e racconti, esploro le emozioni umane e le piccole meraviglie quotidiane che spesso passiamo senza notare.
+                </p>
+                <p class="mt-2">
+                    Se volete contattarmi, potete scrivermi all'indirizzo: <a href="mailto:esempio@email.com">esempio@email.com</a>
+                </p>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#poesie">Poesie</a>
+                <a href="#racconti">Racconti</a>
+                <a href="#laboratori">Laboratori</a>
+                <a href="#chi-sono">Chi Sono</a>
+            </div>
+            <p class="copyright">&copy; 2023-2025 Parole di Carta. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+    
+    <!-- Modal per visualizzare il contenuto -->
+    <div id="content-modal" class="modal-backdrop">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-title">Titolo</h3>
+                <button class="close-btn" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-content">
+                <!-- Il contenuto viene inserito dinamicamente -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
+        // ===============================
+        // GESTIONE CONTENUTI DA JSON
+        // ===============================
+        
+        // Funzione per caricare i contenuti da file JSON
+        async function loadContents() {
+            try {
+                const response = await fetch('content.json');
+                if (!response.ok) {
+                    throw new Error('Errore nel caricamento dei contenuti');
+                }
+                
+                const data = await response.json();
+                renderContents(data);
+            } catch (error) {
+                console.error('Errore:', error);
+                // Carichiamo i contenuti di esempio se non è possibile accedere al file JSON
+                renderContents({
+                    poesie: [
+                        {
+                            id: "p1",
+                            titolo: "Alba d'Estate",
+                            data: "2023-06-15",
+                            testo: "Sopra i tetti di cotto,\nil sole sorge lentamente.\nNel silenzio del mattino,\ngli uccelli cominciano a cantare.\n\nLa città si sveglia,\nmentre la rugiada brilla sull'erba.\nUn nuovo giorno è nato,\ncon tutte le sue promesse."
+                        },
+                        {
+                            id: "p2",
+                            titolo: "Nostalgia",
+                            data: "2023-10-03",
+                            testo: "Ricordi come sabbia tra le dita,\nscivolano via nonostante i tentativi\ndi trattenerli.\n\nIl tempo corre, inesorabile,\nlasciando alle spalle\nframmenti di vita vissuta."
+                        }
+                    ],
+                    racconti: [
+                        {
+                            id: "r1",
+                            titolo: "Il Vecchio del Lago",
+                            data: "2023-05-22",
+                            testo: "Era una mattina nebbiosa quando lo vidi per la prima volta. Seduto sulla riva del lago, con la sua canna da pesca e un vecchio cappello di paglia. Nessuno in paese sapeva da dove fosse venuto, né quando avesse deciso di stabilirsi in quella piccola capanna ai margini del bosco.\n\nOgni giorno, all'alba, prendeva posizione sullo stesso masso piatto e lanciava la sua lenza nelle acque scure del lago. Rimaneva immobile per ore, come se il tempo per lui avesse un significato diverso.\n\nUna mattina, spinto dalla curiosità, decisi di avvicinarmi..."
+                        }
+                    ],
+                    laboratori: [
+                        {
+                            id: "l1",
+                            titolo: "Scrivere con i Cinque Sensi",
+                            data: "2024-03-10",
+                            testo: "In questo laboratorio esploreremo come arricchire la scrittura attraverso l'uso dei cinque sensi. Impareremo tecniche per trasformare sensazioni visive, uditive, tattili, olfattive e gustative in parole evocative che danno vita alla pagina e coinvolgono profondamente il lettore.",
+                            extra: "Durata: 2 ore\nLivello: Principianti e intermedi\nProssime date: Da definire"
+                        }
+                    ]
+                });
+            }
+        }
+        
+        // Funzione per renderizzare i contenuti sulle rispettive sezioni
+        function renderContents(data) {
+            // Renderizza poesie
+            const poesieContainer = document.getElementById('poesie-container');
+            poesieContainer.innerHTML = '';
+            
+            if (data.poesie && data.poesie.length > 0) {
+                data.poesie.forEach(poesia => {
+                    poesieContainer.appendChild(createCard(poesia, 'poesia'));
+                });
+            } else {
+                poesieContainer.innerHTML = '<p class="text-center">Nessuna poesia disponibile.</p>';
+            }
+            
+            // Renderizza racconti
+            const raccontiContainer = document.getElementById('racconti-container');
+            raccontiContainer.innerHTML = '';
+            
+            if (data.racconti && data.racconti.length > 0) {
+                data.racconti.forEach(racconto => {
+                    raccontiContainer.appendChild(createCard(racconto, 'racconto'));
+                });
+            } else {
+                raccontiContainer.innerHTML = '<p class="text-center">Nessun racconto disponibile.</p>';
+            }
+            
+            // Renderizza laboratori
+            const laboratoriContainer = document.getElementById('laboratori-container');
+            laboratoriContainer.innerHTML = '';
+            
+            if (data.laboratori && data.laboratori.length > 0) {
+                data.laboratori.forEach(laboratorio => {
+                    laboratoriContainer.appendChild(createCard(laboratorio, 'laboratorio'));
+                });
+            } else {
+                laboratoriContainer.innerHTML = '<p class="text-center">Nessun laboratorio disponibile.</p>';
+            }
+        }
+        
+        // Funzione per creare una card
+        function createCard(item, tipo) {
+            const card = document.createElement('article');
+            card.className = `card card-${tipo}`;
+            card.setAttribute('data-id', item.id);
+            card.setAttribute('data-tipo', tipo);
+            
+            // Determina come visualizzare il testo in anteprima
+            let anteprima = item.testo;
+            if (tipo === 'poesia') {
+                // Per le poesie, mostra solo le prime 4 righe
+                anteprima = item.testo.split('\n').slice(0, 4).join('\n');
+                if (item.testo.split('\n').length > 4) {
+                    anteprima += '...';
+                }
+            } else {
+                // Per racconti e laboratori, limita a 150 caratteri
+                if (anteprima.length > 150) {
+                    anteprima = anteprima.substring(0, 150) + '...';
+                }
+            }
+            
+            card.innerHTML = `
+                <div class="card-content">
+                    <span class="card-tipo tipo-${tipo}">${getTipoLabel(tipo)}</span>
+                    <h3>${item.titolo}</h3>
+                    <span class="card-date">${formatDate(item.data)}</span>
+                    <div class="card-text">${tipo === 'poesia' ? anteprima.replace(/\n/g, '<br>') : anteprima}</div>
+                    <a href="#" class="read-more">
+                        Leggi ${tipo === 'laboratorio' ? 'dettagli' : 'tutto'}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
+            `;
+            
+            // Aggiungi evento click per visualizzare il contenuto completo
+            card.querySelector('.read-more').addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal(item, tipo);
+            });
+            
+            return card;
+        }
+        
+        // Funzione per aprire il modal con il contenuto completo
+        function openModal(item, tipo) {
+            const modal = document.getElementById('content-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            
+            modalTitle.textContent = item.titolo;
+            
+            let content = `
+                <span class="card-date">${formatDate(item.data)}</span>
+                <div class="${tipo === 'poesia' ? 'poesia-body' : 'content-body'}">
+                    ${tipo === 'poesia' ? item.testo.replace(/\n/g, '<br>') : item.testo.replace(/\n/g, '<br>')}
+                </div>
+            `;
+            
+            // Aggiungi i dettagli extra per i laboratori
+            if (tipo === 'laboratorio' && item.extra) {
+                content += `
+                    <div class="mt-3">
+                        <h4>Dettagli</h4>
+                        <p>${item.extra.replace(/\n/g, '<br>')}</p>
+                    </div>
+                `;
+            }
+            
+            modalContent.innerHTML = content;
+            modal.classList.add('show');
+            
+            // Blocca lo scroll della pagina
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Chiudi modal
+        document.getElementById('close-modal').addEventListener('click', function() {
+            document.getElementById('content-modal').classList.remove('show');
+            document.body.style.overflow = '';
+        });
+        
+        // Chiudi modal cliccando fuori
+        document.getElementById('content-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Funzione per formattare la data
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('it-IT', options);
+        }
+        
+        // Funzione per ottenere l'etichetta del tipo di contenuto
+        function getTipoLabel(tipo) {
+            switch(tipo) {
+                case 'poesia': return 'Poesia';
+                case 'racconto': return 'Racconto';
+                case 'laboratorio': return 'Laboratorio';
+                default: return '';
+            }
+        }
+        
+        // Carica i contenuti al caricamento della pagina
+        document.addEventListener('DOMContentLoaded', loadContents);
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerOffset = 70;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
