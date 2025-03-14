@@ -1,0 +1,33 @@
+{
+  "poesie": [
+    {
+      "id": "p1",
+      "titolo": "Alba d'Estate",
+      "data": "2023-06-15",
+      "testo": "Sopra i tetti di cotto,\nil sole sorge lentamente.\nNel silenzio del mattino,\ngli uccelli cominciano a cantare.\n\nLa città si sveglia,\nmentre la rugiada brilla sull'erba.\nUn nuovo giorno è nato,\ncon tutte le sue promesse."
+    },
+    {
+      "id": "p2",
+      "titolo": "Nostalgia",
+      "data": "2023-10-03",
+      "testo": "Ricordi come sabbia tra le dita,\nscivolano via nonostante i tentativi\ndi trattenerli.\n\nIl tempo corre, inesorabile,\nlasciando alle spalle\nframmenti di vita vissuta."
+    }
+  ],
+  "racconti": [
+    {
+      "id": "r1",
+      "titolo": "Il Vecchio del Lago",
+      "data": "2023-05-22",
+      "testo": "Era una mattina nebbiosa quando lo vidi per la prima volta. Seduto sulla riva del lago, con la sua canna da pesca e un vecchio cappello di paglia. Nessuno in paese sapeva da dove fosse venuto, né quando avesse deciso di stabilirsi in quella piccola capanna ai margini del bosco.\n\nOgni giorno, all'alba, prendeva posizione sullo stesso masso piatto e lanciava la sua lenza nelle acque scure del lago. Rimaneva immobile per ore, come se il tempo per lui avesse un significato diverso.\n\nUna mattina, spinto dalla curiosità, decisi di avvicinarmi..."
+    }
+  ],
+  "laboratori": [
+    {
+      "id": "l1",
+      "titolo": "Scrivere con i Cinque Sensi",
+      "data": "2024-03-10",
+      "testo": "In questo laboratorio esploreremo come arricchire la scrittura attraverso l'uso dei cinque sensi. Impareremo tecniche per trasformare sensazioni visive, uditive, tattili, olfattive e gustative in parole evocative che danno vita alla pagina e coinvolgono profondamente il lettore.",
+      "extra": "Durata: 2 ore\nLivello: Principianti e intermedi\nProssime date: Da definire"
+    }
+  ]
+}
